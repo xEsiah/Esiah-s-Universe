@@ -1,0 +1,161 @@
+/* src/components/InfiniteMenu.css */
+
+#infinite-grid-menu-canvas {
+  cursor: grab;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  outline: none;
+  display: block;
+}
+
+#infinite-grid-menu-canvas:active {
+  cursor: grabbing;
+}
+
+/* Conteneur pour centrer les éléments par dessus le canvas */
+.infinite-menu-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+.infinite-menu-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 0, 0, 0.4) 10%,
+    transparent 70%
+  );
+  z-index: -1;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.face-title.inactive ~ ::before {
+  opacity: 0;
+}
+.action-button {
+  position: absolute;
+  left: 50%;
+  bottom: 8%; /* Un peu plus bas pour laisser respirer le texte */
+  z-index: 10;
+
+  /* Dimensions de la bannière */
+  padding: 12px 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  /* Style visuel */
+  background: var(--clr-accent-600);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 40px; /* Forme pilule */
+  cursor: pointer;
+
+  /* Animation d'entrée */
+  transform: translateX(-50%) translateY(20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.action-button.active {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Texte à l'intérieur */
+.action-button-text {
+  color: #fff;
+
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.action-button-arrow {
+  color: #fff;
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+/* --- EFFET HOVER --- */
+.action-button:hover {
+  background: #fff;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+.action-button:hover .action-button-text,
+.action-button:hover .action-button-arrow {
+  color: var(--clr-accent-600);
+}
+
+.action-button:hover .action-button-arrow {
+  transform: translateX(5px);
+}
+
+.action-button.inactive {
+  opacity: 0;
+  transform: translateX(-50%) translateY(10px) scale(0.9);
+  pointer-events: none;
+}
+
+.face-title {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font-weight: 900;
+  font-size: 3rem;
+  color: #fff;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  width: 100%;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.1s ease;
+}
+
+.face-title.active {
+  opacity: 1;
+  pointer-events: auto;
+  transition: 0.5s ease;
+}
+
+.face-description {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1rem;
+  color: #ccc;
+  text-align: center;
+  max-width: 80%;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.1s ease;
+}
+
+.face-description.active {
+  opacity: 1;
+  pointer-events: auto;
+  transition: 0.5s ease;
+}
+
+@media (max-width: 768px) {
+  .face-title {
+    font-size: 2rem;
+  }
+  .face-description {
+    font-size: 0.9rem;
+  }
+}

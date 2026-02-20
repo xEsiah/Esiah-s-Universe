@@ -1,0 +1,139 @@
+:root {
+  --white: #ffffff;
+  --accent-primary: rgba(183, 28, 28, 1);
+  --accent-glow: rgba(183, 28, 28, 0.3);
+  --border-color: #1a0505;
+  --background-dark: #050000;
+}
+
+.card-grid {
+  display: grid;
+  gap: 0.75em;
+  padding: 1em;
+  max-width: 60em;
+  margin: 0 auto;
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.5rem);
+}
+
+.magic-bento-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  aspect-ratio: 4/3;
+  min-height: 220px;
+  width: 100%;
+  padding: 1.5em;
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  background-color: var(--background-dark);
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  z-index: 1;
+
+  --glow-x: 50%;
+  --glow-y: 50%;
+  --glow-intensity: 0;
+  --glow-radius: 500px; /* Augmenté pour couvrir toute la carte */
+}
+
+/* OVERLAY IMAGE (Assombrissement) */
+.magic-bento-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.4),
+    rgba(0, 0, 0, 0.8)
+  );
+  z-index: 0;
+}
+
+/* BORDURE ÉPAISSE & SPOTLIGHT */
+.magic-bento-card--border-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  /* --- ÉPAISSEUR DE LA BORDURE --- */
+  padding: 6px;
+
+  background: radial-gradient(
+    var(--glow-radius) circle at var(--glow-x) var(--glow-y),
+    rgba(183, 28, 28, calc(var(--glow-intensity) * 1)) 0%,
+    rgba(183, 28, 28, calc(var(--glow-intensity) * 0.4)) 50%,
+    transparent 80%
+  );
+  border-radius: inherit;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  z-index: 3;
+}
+
+.magic-bento-card:hover {
+  transform: translateY(-5px);
+  /* Lueur externe supplémentaire au survol */
+  box-shadow: 0 0 30px rgba(183, 28, 28, 0.2);
+}
+
+.magic-bento-card__header,
+.magic-bento-card__content {
+  z-index: 4;
+  position: relative;
+  color: var(--white);
+}
+
+/* Typographie */
+.magic-bento-card__label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.magic-bento-card__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.magic-bento-card__description {
+  font-size: 1rem;
+  opacity: 0.7;
+  line-height: 1.4;
+}
+
+/* Grille Layout (Modèle original) */
+@media (min-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .magic-bento-card:nth-child(3) {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  .magic-bento-card:nth-child(4) {
+    grid-column: 1 / span 2;
+    grid-row: 2 / span 2;
+  }
+  .magic-bento-card:nth-child(6) {
+    grid-column: 4;
+    grid-row: 3;
+  }
+}

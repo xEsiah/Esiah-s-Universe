@@ -1,0 +1,200 @@
+:root {
+  --border-subtle: rgba(255, 255, 255, 0.15);
+  --text-dim: rgba(255, 255, 255, 0.5);
+}
+
+/* 1. CONFIGURATION LAYOUT & POINTER EVENTS */
+.menu-wrap {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%); /* Full width hack */
+  margin-right: calc(-50vw + 50%);
+  margin-top: 8rem;
+  margin-bottom: 8rem;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  left: 0;
+  will-change: height;
+  /* CRUCIAL : La souris passe à travers pour atteindre le background (parallaxe) */
+  pointer-events: none;
+}
+
+.menu {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  /* CRUCIAL : La souris passe à travers */
+  pointer-events: none;
+}
+
+.menu__item {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--border-subtle);
+  transition: background-color 0.4s ease;
+  /* CRUCIAL : La souris passe à travers */
+  pointer-events: none;
+}
+
+.menu__item:last-child {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* 2. ÉLÉMENTS INTERACTIFS (On réactive la souris) */
+.menu__item-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 140px;
+  padding: 0 4vw;
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 300;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  letter-spacing: -1px;
+  color: #fff;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  pointer-events: auto;
+}
+
+.menu__item-link.link-active {
+  background-color: #0808083b;
+  backdrop-filter: blur(10px);
+  border-left: 4px solid var(--accent-red);
+  padding-left: 5vw;
+}
+
+.menu__item-link:hover {
+  padding-left: 6vw;
+  opacity: 1;
+}
+
+/* --- ACCORDÉON (DETAILS) --- */
+.service-details-wrapper {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid var(--border-subtle);
+  min-height: 0;
+  pointer-events: auto;
+}
+
+.details-inner {
+  padding: 4rem 4vw;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .details-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.service-detail-content h3 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #fff;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.8;
+}
+
+.service-detail-content p {
+  color: var(--text-dim);
+  font-size: 1.2rem;
+  line-height: 1.6;
+  max-width: 800px;
+}
+
+.service-detail-content ul {
+  display: flex;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding: 0;
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+.service-detail-content li {
+  padding: 10px 24px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 50px;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #fff;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.service-detail-content li:hover {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+}
+
+/* --- MARQUEE --- */
+.marquee {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+
+  /* CORRECTIF FILTRE : Plus clair (0.4) pour plus de légèreté */
+  background: rgba(10, 10, 10, 0.4);
+  backdrop-filter: blur(6px);
+
+  transform: translate3d(0, 101%, 0);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.marquee__inner-wrap {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.marquee__inner {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 100%;
+  width: fit-content; /* Laisse le contenu s'étendre */
+  will-change: transform;
+  flex-wrap: nowrap;
+}
+
+.marquee__part {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0; /* Empêche l'écrasement */
+  padding-right: 4vw;
+}
+
+.marquee span {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 300;
+  padding: 0 2vw;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.marquee__img {
+  width: 350px;
+  height: 100px;
+  margin: 0 3vw;
+  border-radius: 4px;
+  filter: grayscale(100%) contrast(1.2);
+  opacity: 0.8;
+  background-size: cover;
+  background-position: center;
+}

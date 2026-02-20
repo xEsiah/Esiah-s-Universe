@@ -1,0 +1,193 @@
+.card-nav-container {
+  position: absolute;
+  top: 2em;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 800px;
+  z-index: 99;
+  box-sizing: border-box;
+}
+
+.card-nav {
+  display: block;
+  height: 60px;
+  padding: 0;
+  background-color: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  color: var(--clr-text);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+  will-change: height;
+}
+
+.card-nav-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.8rem; /* Ajusté pour laisser de la place */
+  z-index: 2;
+}
+
+/* --- HAMBURGER --- */
+.hamburger-menu {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  gap: 6px;
+  color: var(--clr-text);
+  width: 40px;
+}
+
+.hamburger-menu:hover .hamburger-line {
+  opacity: 0.75;
+}
+
+.hamburger-line {
+  width: 24px;
+  height: 2px;
+  background-color: currentColor;
+  transition:
+    transform 0.25s ease,
+    opacity 0.2s ease;
+  transform-origin: 50% 50%;
+}
+
+.hamburger-menu.open .hamburger-line:first-child {
+  transform: translateY(4px) rotate(45deg);
+}
+
+.hamburger-menu.open .hamburger-line:last-child {
+  transform: translateY(-4px) rotate(-45deg);
+}
+
+/* --- CENTRE : TITRE --- */
+.center-title-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* Laisse cliquer au travers si besoin */
+}
+
+.site-title {
+  /* Ou ta font perso */
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: -0.02em;
+  color: var(--clr-text);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: default;
+  pointer-events: auto;
+}
+
+/* Animation Hover Titre */
+.site-title:hover {
+  transform: scale(1.05);
+  color: var(--clr-accent); /* Petit bonus : change de couleur au survol */
+}
+
+/* --- DROITE : LOGO BOUTON --- */
+.right-logo-btn {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  padding: 0 0.5rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.nav-logo-img {
+  height: 36px;
+  width: auto;
+  display: block;
+}
+
+/* Animation Hover Logo */
+.right-logo-btn:hover {
+  transform: scale(1.15);
+}
+
+/* --- CONTENU DU MENU --- */
+.card-nav-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 60px;
+  bottom: 0;
+  padding: 0;
+  display: block;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.card-nav.open .card-nav-content {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* --- MOBILE --- */
+@media (max-width: 768px) {
+  .card-nav-container {
+    width: 95%;
+    top: 1em;
+  }
+
+  .card-nav-top {
+    padding: 0.5rem 1rem;
+  }
+
+  .center-title-container {
+    position: static;
+    transform: none;
+    flex-grow: 1;
+    text-align: center;
+  }
+
+  .site-title {
+    font-size: 1rem;
+  }
+
+  .right-logo-btn {
+    padding-right: 0;
+  }
+
+  .nav-logo-img {
+    height: 28px;
+  }
+
+  .card-nav-content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 0.5rem;
+    bottom: 0;
+    justify-content: flex-start;
+  }
+
+  .nav-card {
+    height: auto;
+    min-height: 80px;
+    flex: 1 1 auto;
+    max-height: none;
+  }
+}
