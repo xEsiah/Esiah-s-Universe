@@ -78,7 +78,7 @@ const Cohaise = () => {
   return (
     <div className="layout-page" style={{ overflowX: "hidden" }}>
       <section className="main-section">
-        <h1 className="title-cohaise">Co Hai Se</h1>
+        <h1 className="cohaise-title">Co Hai Se</h1>
         <p className="subtitle">
           Your project starts with an idea. It comes to life with Cohaise.
         </p>

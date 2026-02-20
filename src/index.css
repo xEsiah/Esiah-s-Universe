@@ -142,7 +142,7 @@ textarea {
   text-shadow: 0 0 20px rgba(183, 28, 28, 0.4);
 }
 
-.main-section .title-cohaise {
+.main-section .cohaise-title {
   font-size: clamp(2.5rem, 6vw, 5rem);
   color: var(--clr-text);
 }
@@ -153,6 +153,11 @@ textarea {
   letter-spacing: 2px;
 }
 
+.loading {
+  text-align: center;
+  font-size: 28px;
+  padding: 30vh 0px;
+}
 /* Footer */
 footer {
   position: relative;

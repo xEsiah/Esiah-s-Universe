@@ -17,8 +17,28 @@ const CardNav = ({
   const navRef = useRef(null);
   const tlRef = useRef(null);
   const location = useLocation();
-
   const navigate = useNavigate();
+
+  const closeMenuIfOpen = useCallback(() => {
+    const tl = tlRef.current;
+    if (!tl || !isExpanded) return;
+    setIsHamburgerOpen(false);
+    tl.reverse();
+    tl.eventCallback("onReverseComplete", () => setIsExpanded(false));
+  }, [isExpanded]);
+
+  const toggleMenu = () => {
+    const tl = tlRef.current;
+    if (!tl) return;
+    if (!isExpanded) {
+      setIsHamburgerOpen(true);
+      setIsExpanded(true);
+      tl.play();
+    } else {
+      closeMenuIfOpen();
+    }
+  };
+
   const handleCardClick = (link) => {
     if (!link) return;
     const cleanLink = link.replace("_blank", "").trim();
@@ -27,10 +47,11 @@ const CardNav = ({
     } else {
       navigate(cleanLink);
     }
-    toggleMenu();
+    closeMenuIfOpen();
   };
 
   const handleCohaiseClick = () => {
+    closeMenuIfOpen();
     if (location.pathname === "/cohaise") {
       setShowLanyard(true);
       setTimeout(() => setShowLanyard(false), 5000);
@@ -128,20 +149,6 @@ const CardNav = ({
     return () => tl?.kill();
   }, [createTimeline]);
 
-  const toggleMenu = () => {
-    const tl = tlRef.current;
-    if (!tl) return;
-    if (!isExpanded) {
-      setIsHamburgerOpen(true);
-      setIsExpanded(true);
-      tl.play();
-    } else {
-      setIsHamburgerOpen(false);
-      tl.reverse();
-      tl.eventCallback("onReverseComplete", () => setIsExpanded(false));
-    }
-  };
-
   return (
     <div className={`card-nav-container ${className}`}>
       <nav ref={navRef} className={`card-nav ${isExpanded ? "open" : ""}`}>
@@ -157,7 +164,11 @@ const CardNav = ({
           </div>
 
           <div className="center-title-container">
-            <Link to="/" className="site-title cursor-target">
+            <Link
+              onClick={closeMenuIfOpen}
+              to="/"
+              className="site-title cursor-target"
+            >
               Esiah's Universe
             </Link>
           </div>
@@ -183,12 +194,13 @@ const CardNav = ({
           style={{
             opacity: isExpanded || isHamburgerOpen ? 1 : 0,
             transition: "opacity 0.3s ease 0.1s",
+            pointerEvents: isExpanded ? "auto" : "none",
           }}
         >
           <InfiniteMenu
             items={menuItems}
             scale={0.8}
-            onClose={toggleMenu}
+            onClose={closeMenuIfOpen}
             onItemClick={handleCardClick}
           />
         </div>

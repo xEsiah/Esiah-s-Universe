@@ -1,0 +1,28 @@
+.card-swap-container {
+  position: relative;
+  margin: 0 auto;
+  perspective: 1500px;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-style: preserve-3d;
+  will-change: transform;
+  pointer-events: auto !important;
+}
+
+/* Responsive : On réduit la taille des cartes de 800px sur mobile */
+@media (max-width: 1024px) {
+  .card-swap-container {
+    transform: scale(0.8);
+  }
+}
+@media (max-width: 768px) {
+  .card-swap-container {
+    transform: scale(0.5);
+  }
+}

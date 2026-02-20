@@ -1,6 +1,12 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+
+  # 1. Redirection du sous-domaine vers le dossier /cohaise
+  RewriteCond %{HTTP_HOST} ^cohaise\.esiah\.dev$ [NC]
+  RewriteRule ^(.*)$ https://esiah.dev/cohaise/$1 [L,R=301]
+
+  # 2. Gestion standard du SPA React (ne pas toucher)
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
