@@ -6,7 +6,7 @@ const LightPillar = ({
   topColor = "#5227FF",
   bottomColor = "#FF9FFC",
   intensity = 1.0,
-  rotationSpeed = 0.3,
+  rotationSpeed = 0.6,
   interactive = true,
   className = "",
   glowAmount = 0.005,
@@ -42,6 +42,12 @@ const LightPillar = ({
   useEffect(() => {
     if (!containerRef.current || !webGLSupported) return;
 
+    const isMobile =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent,
+      );
+    const effectivelyInteractive = interactive && !isMobile;
+
     const container = containerRef.current;
     const width = container.clientWidth;
     const height = container.clientHeight;
@@ -50,9 +56,6 @@ const LightPillar = ({
     sceneRef.current = scene;
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
     cameraRef.current = camera;
-
-    // Fini le bridage ! On respecte la prop `quality` que tu as passé (high)
-    let effectiveQuality = quality;
 
     const qualitySettings = {
       low: {
@@ -78,16 +81,14 @@ const LightPillar = ({
       },
     };
 
-    const settings =
-      qualitySettings[effectiveQuality] || qualitySettings.medium;
+    const settings = qualitySettings[quality] || qualitySettings.medium;
 
     let renderer;
     try {
       renderer = new THREE.WebGLRenderer({
         antialias: false,
         alpha: true,
-        powerPreference:
-          effectiveQuality === "high" ? "high-performance" : "low-power",
+        powerPreference: quality === "high" ? "high-performance" : "low-power",
         precision: settings.precision,
         stencil: false,
         depth: false,
@@ -157,7 +158,7 @@ const LightPillar = ({
 
         float rotC = uRotCos;
         float rotS = uRotSin;
-        
+
         if(uInteractive && (uMouse.x != 0.0 || uMouse.y != 0.0)) {
           float a = uMouse.x * 3.14159; 
           rotC = cos(a);
@@ -199,7 +200,7 @@ const LightPillar = ({
 
         float widthNorm = uPillarWidth / 3.0;
         col = tanh(col * uGlowAmount / widthNorm);
-                col -= fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453) / 15.0 * uNoiseIntensity;
+        col -= fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453) / 15.0 * uNoiseIntensity;
         
         gl_FragColor = vec4(col * uIntensity, 1.0);
       }
@@ -219,11 +220,11 @@ const LightPillar = ({
         uTopColor: { value: parseColor(topColor) },
         uBottomColor: { value: parseColor(bottomColor) },
         uIntensity: { value: intensity },
-        uInteractive: { value: interactive },
+        uInteractive: { value: effectivelyInteractive },
         uGlowAmount: { value: glowAmount },
         uPillarWidth: { value: pillarWidth },
         uPillarHeight: { value: pillarHeight },
-        uNoiseIntensity: { value: noiseIntensity }, // Valeur exacte
+        uNoiseIntensity: { value: noiseIntensity },
         uRotCos: { value: 1.0 },
         uRotSin: { value: 0.0 },
         uPillarRotCos: { value: Math.cos(pillarRotRad) },
@@ -243,18 +244,17 @@ const LightPillar = ({
     scene.add(mesh);
 
     const handleMouseMove = (event) => {
-      if (!interactive) return;
+      if (!effectivelyInteractive) return;
       const x = (event.clientX / window.innerWidth) * 2 - 1;
       const y = -(event.clientY / window.innerHeight) * 2 + 1;
       mouseRef.current.set(x, y);
     };
-
-    if (interactive) {
+    if (effectivelyInteractive) {
       window.addEventListener("mousemove", handleMouseMove, { passive: true });
     }
 
     let lastTime = performance.now();
-    const targetFPS = effectiveQuality === "low" ? 30 : 60;
+    const targetFPS = 60;
     const frameTime = 1000 / targetFPS;
 
     const animate = (currentTime) => {
@@ -271,10 +271,9 @@ const LightPillar = ({
         timeRef.current += 0.016 * rotationSpeed;
         const t = timeRef.current;
         materialRef.current.uniforms.uTime.value = t;
-
-        if (!interactive) {
-          materialRef.current.uniforms.uRotCos.value = Math.cos(t * 0.3);
-          materialRef.current.uniforms.uRotSin.value = Math.sin(t * 0.3);
+        if (!effectivelyInteractive) {
+          materialRef.current.uniforms.uRotCos.value = Math.cos(t * 0.6);
+          materialRef.current.uniforms.uRotSin.value = Math.sin(t * 0.6);
         }
 
         rendererRef.current.render(sceneRef.current, cameraRef.current);
@@ -289,7 +288,6 @@ const LightPillar = ({
         return;
       const newWidth = containerRef.current.clientWidth;
       const newHeight = containerRef.current.clientHeight;
-
       rendererRef.current.setSize(newWidth, newHeight);
       materialRef.current.uniforms.uResolution.value.set(newWidth, newHeight);
     };
@@ -298,7 +296,7 @@ const LightPillar = ({
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      if (interactive) {
+      if (effectivelyInteractive) {
         window.removeEventListener("mousemove", handleMouseMove);
       }
       if (rafRef.current) cancelAnimationFrame(rafRef.current);

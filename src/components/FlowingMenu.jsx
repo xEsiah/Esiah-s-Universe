@@ -10,7 +10,7 @@ function FlowingMenu({
   speed = 15,
   textColor = "#fff",
   bgColor = "transparent",
-  marqueeBgColor = "rgba(0,0,0,0.8)", // Sera écrasé par le CSS pour le glassmorphism
+  marqueeBgColor = "rgba(0,0,0,0.8)",
   marqueeTextColor = "#fff",
   borderColor = "rgba(255,255,255,0.1)",
 }) {
@@ -36,6 +36,15 @@ function FlowingMenu({
             borderColor={borderColor}
           />
         ))}
+
+        <div
+          style={{
+            height: activeIdx !== null ? "60vh" : "0px",
+            transition: "height 0.5s ease",
+            width: "100%",
+            pointerEvents: "none",
+          }}
+        />
       </nav>
     </div>
   );
@@ -103,25 +112,22 @@ function MenuItem({
   useEffect(() => {
     if (isOpen && itemRef.current) {
       const isMobile = window.innerWidth < 768;
-
       gsap.to(contentRef.current, {
         height: "auto",
         opacity: 1,
         duration: 0.6,
         ease: "power3.out",
       });
-
       gsap.to(window, {
-        duration: 1,
-        delay: 0.4,
+        duration: isMobile ? 0.8 : 1,
+        delay: 0.35,
         scrollTo: {
           y: itemRef.current,
-          offsetY: isMobile ? 10 : 60,
-          autoKill: true,
+          offsetY: isMobile ? 0 : 60,
+          autoKill: false,
         },
         ease: "power3.inOut",
       });
-
       gsap.to(marqueeRef.current, {
         y: "101%",
         duration: 0.4,
