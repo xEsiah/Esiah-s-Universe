@@ -101,19 +101,22 @@ function MenuItem({
   }, [speed, repetitions]);
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && itemRef.current) {
+      const isMobile = window.innerWidth < 768;
+
       gsap.to(contentRef.current, {
         height: "auto",
         opacity: 1,
         duration: 0.6,
         ease: "power3.out",
       });
+
       gsap.to(window, {
         duration: 1,
         delay: 0.4,
         scrollTo: {
           y: itemRef.current,
-          offsetY: 60,
+          offsetY: isMobile ? 10 : 60,
           autoKill: true,
         },
         ease: "power3.inOut",
@@ -135,6 +138,8 @@ function MenuItem({
   }, [isOpen]);
 
   const handleMouseEnter = () => {
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
     if (isOpen) return;
 
     gsap.to(marqueeRef.current, { y: "0%", duration: 0.6, ease: "expo" });
@@ -142,6 +147,7 @@ function MenuItem({
   };
 
   const handleMouseLeave = () => {
+    if (window.matchMedia("(pointer: coarse)").matches) return;
     gsap.to(marqueeRef.current, { y: "101%", duration: 0.6, ease: "expo" });
   };
 

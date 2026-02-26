@@ -198,3 +198,13 @@
   background-size: cover;
   background-position: center;
 }
+
+@media (pointer: coarse) {
+  .marquee {
+    display: none !important;
+  }
+
+  .menu__item-link:hover {
+    padding-left: 4vw;
+  }
+}
