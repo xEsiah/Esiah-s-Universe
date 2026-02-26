@@ -25,8 +25,9 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 interface CardSwapProps {
-  width?: number | string;
-  height?: number | string;
+  width?: string | number;
+  maxWidth?: number;
+  aspectRatio?: number;
   cardDistance?: number;
   verticalDistance?: number;
   delay?: number;
@@ -39,28 +40,47 @@ interface CardSwapProps {
 
 // --- Composant Card ---
 export const Card = forwardRef<HTMLDivElement, CardProps>(
-  ({ customClass, className, ...rest }, ref) => (
+  ({ customClass, className, onClick, style, ...rest }, ref) => (
     <div
       ref={ref}
+      onClick={onClick}
       {...rest}
-      className={`absolute top-1/2 left-1/2 transform-3d will-change-transform pointer-events-auto! ${customClass ?? ""} ${className ?? ""}`.trim()}
+      className={`absolute top-1/2 left-1/2 w-[80%] md:w-[85%] h-full transform-3d will-change-transform ${customClass ?? ""} ${className ?? ""}`.trim()}
+      style={{ ...style, pointerEvents: "auto", cursor: "pointer" }}
     />
   ),
 );
 Card.displayName = "Card";
 
-// --- Helpers de positionnement ---
 const makeSlot = (
   i: number,
   distX: number,
   distY: number,
   total: number,
-): Slot => ({
-  x: i * distX,
-  y: -i * distY,
-  z: -i * distX * 1.5,
-  zIndex: total - i,
-});
+  containerWidth: number,
+): Slot => {
+  let factorX = 0.6;
+  let factorY = 0.5;
+
+  if (containerWidth < 768) {
+    factorX = 0.25;
+    factorY = 0.25;
+  } else if (containerWidth < 1300) {
+    const progress = (containerWidth - 768) / (1300 - 768);
+    factorX = 0.3 + progress * 0.3;
+    factorY = 0.4;
+  }
+
+  const totalWidth = (total - 1) * distX * factorX;
+  const centeringOffset = totalWidth / 2;
+
+  return {
+    x: i * distX * factorX - centeringOffset,
+    y: -i * distY * factorY,
+    z: -i * distX * 2 * factorX,
+    zIndex: total - i,
+  };
+};
 
 const placeNow = (el: HTMLDivElement | null, slot: Slot, skew: number) => {
   if (!el) return;
@@ -69,7 +89,7 @@ const placeNow = (el: HTMLDivElement | null, slot: Slot, skew: number) => {
     y: slot.y,
     z: slot.z,
     xPercent: -50,
-    yPercent: -50,
+    yPercent: -40,
     skewY: skew,
     transformOrigin: "center center",
     zIndex: slot.zIndex,
@@ -77,10 +97,10 @@ const placeNow = (el: HTMLDivElement | null, slot: Slot, skew: number) => {
   });
 };
 
-// --- Composant Principal ---
 const CardSwap: React.FC<CardSwapProps> = ({
-  width = 500,
-  height = 400,
+  width = "100%",
+  maxWidth = 1100,
+  aspectRatio = 2.2,
   cardDistance = 60,
   verticalDistance = 70,
   delay = 5000,
@@ -90,6 +110,20 @@ const CardSwap: React.FC<CardSwapProps> = ({
   easing = "elastic",
   children,
 }) => {
+  const container = useRef<HTMLDivElement>(null);
+  const childArr = useMemo(() => Children.toArray(children), [children]);
+  const refs = useMemo(
+    () => childArr.map(() => React.createRef<HTMLDivElement>()),
+    [childArr.length],
+  );
+  const order = useRef<number[]>(
+    Array.from({ length: childArr.length }, (_, i) => i),
+  );
+  const tlRef = useRef<gsap.core.Timeline | null>(null);
+  const intervalRef = useRef<number | null>(null);
+
+  const [currentWidth, setCurrentWidth] = useState(0);
+
   const config = useMemo(
     () =>
       easing === "elastic"
@@ -112,58 +146,56 @@ const CardSwap: React.FC<CardSwapProps> = ({
     [easing],
   );
 
-  const childArr = useMemo(() => Children.toArray(children), [children]);
-
-  // Correction Erreur 2322 : Typage explicite des refs
-  const refs = useMemo(
-    () => childArr.map(() => React.createRef<HTMLDivElement>()),
-    [childArr.length],
-  );
-
-  const order = useRef<number[]>(
-    Array.from({ length: childArr.length }, (_, i) => i),
-  );
-  const tlRef = useRef<gsap.core.Timeline | null>(null);
-  const intervalRef = useRef<number | null>(null);
-  const container = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const total = refs.length;
     if (total === 0) return;
 
-    // Positionnement initial
-    refs.forEach((r, i) => {
-      placeNow(
-        r.current,
-        makeSlot(i, cardDistance, verticalDistance, total),
-        skewAmount,
-      );
-    });
+    const updatePositions = () => {
+      const w = container.current?.clientWidth || window.innerWidth;
+
+      refs.forEach((r, i) => {
+        placeNow(
+          r.current,
+          makeSlot(i, cardDistance, verticalDistance, total, w),
+          skewAmount,
+        );
+      });
+    };
+
+    updatePositions();
+
+    const handleResize = () => {
+      if (container.current) {
+        setCurrentWidth(container.current.clientWidth);
+        updatePositions();
+      }
+    };
+    window.addEventListener("resize", handleResize);
 
     const swap = () => {
       if (order.current.length < 2) return;
-
       const [front, ...rest] = order.current;
       const elFront = refs[front].current;
       if (!elFront) return;
 
+      const w = container.current?.clientWidth || window.innerWidth;
+
       const tl = gsap.timeline();
       tlRef.current = tl;
 
-      // Animation de descente
       tl.to(elFront, {
         y: "+=500",
+        opacity: 0,
         duration: config.durDrop,
         ease: config.ease,
       });
 
       tl.addLabel("promote", `-=${config.durDrop * config.promoteOverlap}`);
 
-      // Avancement des autres cartes
       rest.forEach((idx, i) => {
         const el = refs[idx].current;
         if (!el) return;
-        const slot = makeSlot(i, cardDistance, verticalDistance, total);
+        const slot = makeSlot(i, cardDistance, verticalDistance, total, w);
 
         tl.set(el, { zIndex: slot.zIndex }, "promote");
         tl.to(
@@ -179,12 +211,12 @@ const CardSwap: React.FC<CardSwapProps> = ({
         );
       });
 
-      // Retour de la carte de devant vers le fond
       const backSlot = makeSlot(
         total - 1,
         cardDistance,
         verticalDistance,
         total,
+        w,
       );
       tl.addLabel("return", `promote+=${config.durMove * config.returnDelay}`);
 
@@ -195,6 +227,7 @@ const CardSwap: React.FC<CardSwapProps> = ({
           x: backSlot.x,
           y: backSlot.y,
           z: backSlot.z,
+          opacity: 1,
           duration: config.durReturn,
           ease: config.ease,
         },
@@ -208,7 +241,6 @@ const CardSwap: React.FC<CardSwapProps> = ({
 
     intervalRef.current = window.setInterval(swap, delay);
 
-    // Gestion du Hover
     const node = container.current;
     if (pauseOnHover && node) {
       const pause = () => {
@@ -221,7 +253,6 @@ const CardSwap: React.FC<CardSwapProps> = ({
       };
       node.addEventListener("mouseenter", pause);
       node.addEventListener("mouseleave", resume);
-
       return () => {
         node.removeEventListener("mouseenter", pause);
         node.removeEventListener("mouseleave", resume);
@@ -230,6 +261,7 @@ const CardSwap: React.FC<CardSwapProps> = ({
     }
 
     return () => {
+      window.removeEventListener("resize", handleResize);
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
   }, [
@@ -242,19 +274,12 @@ const CardSwap: React.FC<CardSwapProps> = ({
     refs,
   ]);
 
-  // Rendu des enfants avec injection des props
   const rendered = childArr.map((child, i) => {
     if (!isValidElement(child)) return child;
-
     const typedChild = child as ReactElement<any>;
     return cloneElement(typedChild, {
       key: i,
       ref: refs[i],
-      style: {
-        width,
-        height,
-        ...(typedChild.props.style ?? {}),
-      },
       onClick: (e: React.MouseEvent) => {
         typedChild.props.onClick?.(e);
         onCardClick?.(i);
@@ -265,8 +290,13 @@ const CardSwap: React.FC<CardSwapProps> = ({
   return (
     <div
       ref={container}
-      className="relative mx-auto perspective-[1500px] overflow-visible pointer-events-none lg:scale-100 md:scale-[0.8] scale-[0.5]"
-      style={{ width, height }}
+      className="relative mx-auto perspective-[3000px] overflow-visible py-20 px-4 md:px-12 flex justify-center items-center"
+      style={{
+        width: width,
+        maxWidth: `${maxWidth}px`,
+        aspectRatio: `${aspectRatio}`,
+        height: typeof width === "number" ? "auto" : undefined,
+      }}
     >
       {rendered}
     </div>

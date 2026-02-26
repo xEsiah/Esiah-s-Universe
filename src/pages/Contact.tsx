@@ -7,7 +7,7 @@ export default function Contact() {
     {
       name: "GitHub",
       label: "@xEsiah",
-      url: "https://github.com/thweich",
+      url: "https://github.com/xEsiah",
       image: "/images/contact/github-prev.jpg",
     },
     {
@@ -43,17 +43,17 @@ export default function Contact() {
         <p className="subtitle">You can reach me there:</p>
       </section>
 
-      <div className="contact-container">
+      <div className="contact-container w-full overflow-hidden flex justify-center py-20">
         <CardSwap
-          width={1100}
-          height={500}
+          maxWidth={1100}
+          aspectRatio={window.innerWidth < 768 ? 0.9 : 1.4}
           cardDistance={60}
           verticalDistance={70}
         >
           {contacts.map((contact, index) => (
             <Card
               key={index}
-              className="contact-card"
+              className="contact-card border border-white/10 rounded-2xl overflow-hidden shadow-2xl"
               onClick={() => window.open(contact.url, "_blank")}
             >
               <img
@@ -62,7 +62,7 @@ export default function Contact() {
                 className="contact-card-img"
               />
               <div className="contact-card-overlay" />
-              <div className="contact-card-info ">
+              <div className="contact-card-info">
                 <h3 className="cursor-target">{contact.name}</h3>
                 <p className="cursor-target">{contact.label}</p>
               </div>

@@ -53,7 +53,7 @@ function FlowingMenu({
         ))}
         <div
           style={{
-            height: activeIdx !== null ? "60vh" : "0px",
+            height: "0px",
             transition: "height 0.5s ease",
             width: "100%",
             pointerEvents: "none",
