@@ -13,7 +13,6 @@ export default function Home() {
       <h2>Overview</h2>
       <section className="bento-container">
         <MagicBento
-          textAutoHide={true}
           enableStars={true}
           enableSpotlight={true}
           enableBorderGlow={true}

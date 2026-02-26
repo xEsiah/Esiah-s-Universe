@@ -85,14 +85,12 @@
 .details-inner {
   padding: 4rem 4vw;
   display: grid;
-  grid-template-columns: 1fr 2fr;
   gap: 4rem;
   align-items: start;
 }
 
 @media (max-width: 768px) {
   .details-inner {
-    grid-template-columns: 1fr;
     gap: 2rem;
   }
 }

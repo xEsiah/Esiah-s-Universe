@@ -1,12 +1,14 @@
 .card-nav-container {
-  position: absolute;
-  top: 2em;
-  left: 50%;
-  transform: translateX(-50%);
+  position: sticky;
+  top: 1.5em;
+  margin-left: auto;
+  margin-right: auto;
   width: 90%;
   max-width: 800px;
-  z-index: 99;
+  z-index: 999;
   box-sizing: border-box;
+  margin-bottom: 2em;
+  display: block;
 }
 
 .card-nav {
@@ -32,7 +34,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 0.8rem; /* Ajusté pour laisser de la place */
+  padding: 0.5rem 0.8rem;
   z-index: 2;
 }
 

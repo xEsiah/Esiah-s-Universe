@@ -20,6 +20,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*", "src/**/*.jsx", "src/**/*.js"],
+  "include": ["src/**/*", "src/**/*.jsx", "src/**/*.js", "vite-env.d.ts"],
   "exclude": ["node_modules"]
 }

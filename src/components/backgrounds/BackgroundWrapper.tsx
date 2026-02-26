@@ -11,7 +11,6 @@ export default function BackgroundWrapper() {
 
   return (
     <>
-      {/* 1. COUCHE CURSEURS */}
       <div
         className="fixed inset-0 pointer-events-none"
         style={{
@@ -30,7 +29,6 @@ export default function BackgroundWrapper() {
         )}
       </div>
 
-      {/* 2. COUCHE BACKGROUNDS */}
       <div
         className="fixed inset-0 bg-[#0e0e11] pointer-events-none"
         style={{ zIndex: -10 }}

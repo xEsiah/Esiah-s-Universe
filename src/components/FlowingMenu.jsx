@@ -15,9 +15,24 @@ function FlowingMenu({
   borderColor = "rgba(255,255,255,0.1)",
 }) {
   const [activeIdx, setActiveIdx] = useState(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const toggleItem = (idx) => {
-    setActiveIdx(activeIdx === idx ? null : idx);
+    if (isTransitioning) return;
+    if (activeIdx === idx) {
+      setActiveIdx(null);
+      return;
+    }
+    if (activeIdx !== null) {
+      setIsTransitioning(true);
+      setActiveIdx(null);
+      setTimeout(() => {
+        setActiveIdx(idx);
+        setIsTransitioning(false);
+      }, 500);
+    } else {
+      setActiveIdx(idx);
+    }
   };
 
   return (
@@ -36,7 +51,6 @@ function FlowingMenu({
             borderColor={borderColor}
           />
         ))}
-
         <div
           style={{
             height: activeIdx !== null ? "60vh" : "0px",
@@ -112,6 +126,8 @@ function MenuItem({
   useEffect(() => {
     if (isOpen && itemRef.current) {
       const isMobile = window.innerWidth < 768;
+      gsap.killTweensOf([contentRef.current, window, marqueeRef.current]);
+
       gsap.to(contentRef.current, {
         height: "auto",
         opacity: 1,
@@ -120,7 +136,7 @@ function MenuItem({
       });
       gsap.to(window, {
         duration: isMobile ? 0.8 : 1,
-        delay: 0.35,
+        delay: 0.1,
         scrollTo: {
           y: itemRef.current,
           offsetY: isMobile ? 0 : 60,
@@ -134,6 +150,7 @@ function MenuItem({
         ease: "power2.out",
       });
     } else {
+      gsap.killTweensOf(contentRef.current);
       gsap.to(contentRef.current, {
         height: 0,
         opacity: 0,
@@ -171,8 +188,6 @@ function MenuItem({
       >
         {text}
       </div>
-
-      {/* ZONE DÉTAILS */}
       <div
         className="service-details-wrapper"
         ref={contentRef}
@@ -180,9 +195,6 @@ function MenuItem({
       >
         <div className="details-inner">{Component && <Component />}</div>
       </div>
-
-      {/* MARQUEE */}
-      {/* Note : Le background est géré par le CSS pour le glassmorphism */}
       <div className="marquee" ref={marqueeRef}>
         <div className="marquee__inner-wrap">
           <div
