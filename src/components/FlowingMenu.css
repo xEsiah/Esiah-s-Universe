@@ -3,10 +3,9 @@
   --text-dim: rgba(255, 255, 255, 0.5);
 }
 
-/* 1. CONFIGURATION LAYOUT & POINTER EVENTS */
 .menu-wrap {
   width: 100vw;
-  margin-left: calc(-50vw + 50%); /* Full width hack */
+  margin-left: calc(-50vw + 50%);
   margin-right: calc(-50vw + 50%);
   margin-top: 8rem;
   margin-bottom: 8rem;
@@ -15,7 +14,6 @@
   position: relative;
   left: 0;
   will-change: height;
-  /* CRUCIAL : La souris passe à travers pour atteindre le background (parallaxe) */
   pointer-events: none;
 }
 
@@ -25,7 +23,6 @@
   display: flex;
   flex-direction: column;
   padding: 0;
-  /* CRUCIAL : La souris passe à travers */
   pointer-events: none;
 }
 
@@ -34,7 +31,6 @@
   overflow: hidden;
   border-top: 1px solid var(--border-subtle);
   transition: background-color 0.4s ease;
-  /* CRUCIAL : La souris passe à travers */
   pointer-events: none;
 }
 
@@ -42,7 +38,6 @@
   border-bottom: 1px solid var(--border-subtle);
 }
 
-/* 2. ÉLÉMENTS INTERACTIFS (On réactive la souris) */
 .menu__item-link {
   display: flex;
   align-items: center;
@@ -190,7 +185,7 @@
   width: 350px;
   height: 100px;
   margin: 0 3vw;
-  border-radius: 4px;
+  border-radius: 50px;
   filter: grayscale(100%) contrast(1.2);
   opacity: 0.8;
   background-size: cover;

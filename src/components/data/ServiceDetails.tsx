@@ -1,6 +1,5 @@
 import React from "react";
 
-// Un sous-composant pour éviter de répéter le style des tags/li
 const ServiceTag = ({ children }: { children: React.ReactNode }) => (
   <li className="px-6 py-2.5 border border-white/15 rounded-full text-[0.9rem] uppercase tracking-wider text-white bg-transparent transition-all duration-300 hover:bg-white hover:text-black hover:border-white cursor-default">
     {children}

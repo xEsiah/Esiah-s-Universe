@@ -12,10 +12,13 @@ import Zatyshok from "./pages/projects/Zatyshok";
 import NeoTokyoRush from "./pages/projects/NeoTokyoRush";
 import EchoesOfTheLastStop from "./pages/projects/EchoesOfTheLastStop";
 import ShadowPurgeRiteOfTheDemon from "./pages/projects/ShadowPurgeRiteOfTheDemon";
+import ScrollToTop from "./components/ScrollToTop";
+import WYGTIWIF from "./pages/projects/WYG-TIWIF";
 
 function AppContent() {
   return (
     <>
+      <ScrollToTop />
       <BackgroundWrapper />
       <CardNav />
 
@@ -44,6 +47,7 @@ function AppContent() {
             element={<ShadowPurgeRiteOfTheDemon />}
           />
           <Route path="/projects/zatyshok" element={<Zatyshok />} />
+          <Route path="/projects/wyg-tiwif" element={<WYGTIWIF />} />
         </Routes>
       </main>
 

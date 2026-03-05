@@ -1,0 +1,5 @@
+.project-container {
+  border-top: 1px solid var(--border-subtle);
+  width: 100%;
+  pointer-events: auto;
+}

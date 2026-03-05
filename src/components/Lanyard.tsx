@@ -133,8 +133,8 @@ function Band({ isMobile }: BandProps) {
   const rot = new THREE.Vector3();
 
   const { nodes, materials } = useGLTF("/3d/card.glb") as any;
-  const texture = useTexture("/3d/lanyard.png");
-  const badgeTexture = useTexture("/3d/badge_texture.png");
+  const texture = useTexture("/3d/lanyard.webp");
+  const badgeTexture = useTexture("/3d/badge_texture.webp");
 
   const [curve] = useState(
     () =>

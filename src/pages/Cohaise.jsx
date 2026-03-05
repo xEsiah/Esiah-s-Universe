@@ -2,12 +2,14 @@ import LightPillar from "../components/backgrounds/LightPillar";
 import SplashCursor from "../components/cursors/SplashCursor";
 import LogoLoop from "../components/LogoLoop";
 import FlowingMenu from "../components/FlowingMenu";
+import AnimatedContent from "../components/AnimatedContent";
+
 import {
   WebService,
   MobileService,
   DesignService,
   SoftwareService,
-} from "../components/ServiceDetails";
+} from "../components/data/ServiceDetails";
 
 import {
   SiReact,
@@ -54,22 +56,22 @@ const techLogos = [
 const serviceItems = [
   {
     text: "Web Development",
-    image: "images/webDevelopment.jpg",
+    image: "images/webDevelopment.webp",
     Component: WebService,
   },
   {
     text: "Mobile Apps",
-    image: "images/mobileApps.jpg",
+    image: "images/mobileApps.webp",
     Component: MobileService,
   },
   {
     text: "UI/UX Design",
-    image: "images/uxUI.jpg",
+    image: "images/uxUI.webp",
     Component: DesignService,
   },
   {
     text: "Custom Software",
-    image: "images/customSoftware.jpg",
+    image: "images/customSoftware.webp",
     Component: SoftwareService,
   },
 ];
@@ -77,19 +79,44 @@ const serviceItems = [
 const Cohaise = () => {
   return (
     <div className="layout-page" style={{ overflowX: "hidden" }}>
-      <section className="main-section">
-        <h1 className="cohaise-title">Co Hai Se</h1>
-        <p className="subtitle">
-          Your project starts with an idea. It comes to life with Cohaise.
-        </p>
-      </section>
-
-      <FlowingMenu
-        items={serviceItems}
-        speed={50}
-        textColor="#ffffff"
-        borderColor="rgba(255,255,255,0.15)"
-      />
+      <AnimatedContent
+        distance={50}
+        direction="vertical"
+        reverse={false}
+        duration={2}
+        ease="power3.out"
+        initialOpacity={0}
+        animateOpacity
+        scale={1}
+        threshold={-0.1}
+        delay={0.5}
+      >
+        <section className="main-section">
+          <h1 className="cohaise-title">Co Hai Se</h1>
+          <p className="subtitle">
+            Your project starts with an idea. It comes to life with Cohaise.
+          </p>
+        </section>
+      </AnimatedContent>
+      <AnimatedContent
+        distance={160}
+        direction="horizontal"
+        reverse={false}
+        duration={2}
+        ease="power3.out"
+        initialOpacity={0}
+        animateOpacity
+        scale={1}
+        threshold={0.2}
+        delay={0.1}
+      >
+        <FlowingMenu
+          items={serviceItems}
+          speed={50}
+          textColor="#ffffff"
+          borderColor="rgba(255,255,255,0.15)"
+        />
+      </AnimatedContent>
 
       <LogoLoop
         logos={techLogos}

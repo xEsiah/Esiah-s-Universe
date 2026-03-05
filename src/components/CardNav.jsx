@@ -6,7 +6,7 @@ import Lanyard from "./Lanyard";
 import "./CardNav.css";
 
 const CardNav = ({
-  logo = "/images/logo.png",
+  logo = "/images/logo.webp",
   logoAlt = "Esiah Logo",
   className = "",
   ease = "power3.out",
@@ -62,44 +62,44 @@ const CardNav = ({
     if (location.pathname.startsWith("/projects")) {
       return [
         {
-          image: "/images/Projects.png",
+          image: "/images/Projects.webp",
           link: "/projects",
           title: "All my Projects",
           description: "To discover all my creations",
         },
         {
-          image: "/images/NTR.png",
+          image: "/images/NTR.webp",
           link: "/projects/neo-tokyo-rush",
           title: "Neo Tokyo Rush",
           description: "Cyberpunk-inspired beat 'em All game",
         },
         {
-          image: "/images/PortfolioE1.png",
+          image: "/images/PortfolioE1.webp",
           link: "https://portfolio-xesiahs-projects.vercel.app/",
           title: "Protfolio 2024",
           description: "Portfolio that gathers all my first year's projects",
         },
         {
-          image: "/images/MC.png",
+          image: "/images/Metz-Campus.webp",
           link: "_blank https://metzcampus.fr/",
           title: "Metz Campus",
           description:
             "Website crafted for the Metz Campus organization during my first-year internship.",
         },
         {
-          image: "/images/Zatyshok.png",
+          image: "/images/Zatyshok.webp",
           link: "/projects/zatyshok",
           title: "Затишок",
           description: "Moodboard application",
         },
         {
-          image: "/images/SPRotD.png",
+          image: "/images/SPRotD.webp",
           link: "/projects/shadow-purge-rite-of-the-demon",
           title: "Shadow Purge - Rite of the Demon",
           description: "Hack n'slash RPG",
         },
         {
-          image: "/images/EotLS.png",
+          image: "/images/EotLS.webp",
           link: "/projects/echoes-of-the-last-stop",
           title: "Echoes of the Last Stop",
           description: "Thriller game project in collaboration with my partner",
@@ -108,19 +108,19 @@ const CardNav = ({
     }
     return [
       {
-        image: "/images/Projects.png",
+        image: "/images/Projects.webp",
         link: "/projects",
         title: "All my Projects",
         description: "To discover all my creations",
       },
       {
-        image: "/images/Contact.jpg",
+        image: "/images/Contact.webp",
         link: "/contact",
         title: "Contact",
         description: "Any requests? Feel free to reach out!",
       },
       {
-        image: "/images/Cohaise.jpg",
+        image: "/images/Cohaise.webp",
         link: "/cohaise",
         title: "Co Hai Se",
         description: "About us",

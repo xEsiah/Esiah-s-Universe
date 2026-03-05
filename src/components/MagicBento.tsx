@@ -32,45 +32,45 @@ const DEFAULT_GLOW_COLOR = "183, 28, 28";
 const cardData: CardDataItem[] = [
   {
     title: "Metz Campus",
-    image: "/images/MC.png",
+    image: "/images/Metz-Campus.webp",
     description: "Web platform for students.",
-    label: "Web site",
+    label: "WordPress Web site",
     link: "https://metzcampus.fr",
   },
   {
-    title: "Neo Tokyo Rush",
-    image: "/images/NTR.png",
-    description: "Cyberpunk beat 'em All.",
-    label: "Gamedev",
-    link: "/projects/neo-tokyo-rush",
+    title: "Coeur UA PAM",
+    image: "/images/Coeur-UA-PAM.webp",
+    description: "Web site of the Coeur UA PAM association.",
+    label: "React Web site",
+    link: "https://coeur-ua-pam.fr/",
   },
   {
     title: "About Co Hai Se",
-    image: "/images/Cohaise.jpg",
+    image: "/images/Cohaise.webp",
     description: "Crafting the Web of Your Ambitions.",
     label: "Identity",
     link: "/cohaise",
   },
   {
-    title: "Contact",
-    image: "/images/Contact.jpg",
-    description: "Reach out to me.",
-    label: "Network",
-    link: "/contact",
+    title: "Projects",
+    image: "/images/Projects.webp",
+    description: "Discover who am i by my creations.",
+    label: "Identity",
+    link: "/projects",
   },
   {
     title: "Затишок",
-    image: "/images/Zatyshok.png",
-    description: "Moodboard developed with love.",
+    image: "/images/Zatyshok.webp",
+    description: "Moodboard developed with love !",
     label: "Desktop App",
     link: "/projects/zatyshok",
   },
   {
     title: "Shadow Purge",
-    image: "/images/SPRotD.png",
+    image: "/images/SPRotD.webp",
     description: "Hack n'slash RPG.",
     label: "Gamedev",
-    link: "/projects/shadow-purge",
+    link: "/projects/shadow-purge-rite-of-the-demon",
   },
 ];
 
@@ -255,7 +255,7 @@ export default function MagicBento({
   ];
 
   return (
-    <div className="w-full max-w-260 mx-auto p-4">
+    <div className="w-full max-w-300 mx-auto p-4">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
         {cardData.map((card, i) => (
           <ParticleCard
