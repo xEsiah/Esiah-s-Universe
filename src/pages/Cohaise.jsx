@@ -3,6 +3,7 @@ import SplashCursor from "../components/cursors/SplashCursor";
 import LogoLoop from "../components/LogoLoop";
 import FlowingMenu from "../components/FlowingMenu";
 import AnimatedContent from "../components/AnimatedContent";
+import SEO from "@/components/SEO";
 
 import {
   WebService,
@@ -79,6 +80,10 @@ const serviceItems = [
 const Cohaise = () => {
   return (
     <div className="layout-page" style={{ overflowX: "hidden" }}>
+      <SEO
+        title="Co Hai Se"
+        description="Co Hai Se - Crafting the Web of Your Ambitions. Professional web development, mobile apps, and UI/UX design services."
+      />
       <AnimatedContent
         distance={50}
         direction="vertical"
@@ -107,7 +112,7 @@ const Cohaise = () => {
         initialOpacity={0}
         animateOpacity
         scale={1}
-        threshold={0.2}
+        threshold={0.1}
         delay={0.1}
       >
         <FlowingMenu

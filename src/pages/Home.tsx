@@ -1,9 +1,14 @@
 import MagicBento from "../components/MagicBento";
 import AnimatedContent from "../components/AnimatedContent";
+import SEO from "@/components/SEO";
 
 export default function Home() {
   return (
     <div className="layout-page">
+      <SEO
+        title="Home"
+        description="Welcome to Esiah's Universe. Explore my projects in Game Design, Web Development, and UI/UX."
+      />
       <AnimatedContent
         distance={50}
         direction="vertical"
@@ -33,7 +38,7 @@ export default function Home() {
         initialOpacity={0}
         animateOpacity
         scale={0.95}
-        threshold={0.2}
+        threshold={0}
         delay={0.3}
       >
         <section className="bento-container">

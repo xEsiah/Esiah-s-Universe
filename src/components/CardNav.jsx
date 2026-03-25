@@ -1,9 +1,18 @@
-import { useLayoutEffect, useRef, useState, useCallback, useMemo } from "react";
+import {
+  useLayoutEffect,
+  useRef,
+  useState,
+  useCallback,
+  useMemo,
+  lazy,
+  Suspense,
+} from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { gsap } from "gsap";
-import InfiniteMenu from "./InfiniteMenu";
-import Lanyard from "./Lanyard";
 import "./CardNav.css";
+
+const InfiniteMenu = lazy(() => import("./InfiniteMenu"));
+const Lanyard = lazy(() => import("./Lanyard"));
 
 const CardNav = ({
   logo = "/images/logo.webp",
@@ -90,7 +99,8 @@ const CardNav = ({
           image: "/images/Zatyshok.webp",
           link: "/projects/zatyshok",
           title: "Затишок",
-          description: "Moodboard application",
+          description:
+            "Moodboard/Planner highly customisable application developed with love !",
         },
         {
           image: "/images/SPRotD.webp",
@@ -197,16 +207,20 @@ const CardNav = ({
             pointerEvents: isExpanded ? "auto" : "none",
           }}
         >
-          <InfiniteMenu
-            items={menuItems}
-            scale={0.8}
-            onClose={closeMenuIfOpen}
-            onItemClick={handleCardClick}
-          />
+          <Suspense fallback={null}>
+            <InfiniteMenu
+              items={menuItems}
+              scale={0.8}
+              onClose={closeMenuIfOpen}
+              onItemClick={handleCardClick}
+            />
+          </Suspense>
         </div>
       </nav>
 
-      <Lanyard show={showLanyard} />
+      <Suspense fallback={null}>
+        <Lanyard show={showLanyard} />
+      </Suspense>
     </div>
   );
 };

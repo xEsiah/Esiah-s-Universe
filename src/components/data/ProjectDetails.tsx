@@ -68,7 +68,8 @@ const desktopAppItems = [
     img: "images/Zatyshok.webp",
     link: "/projects/zatyshok",
     title: "Затишок",
-    description: "Moodboard application created for my partner !",
+    description:
+      "Moodboard/Planner highly customisable application with Spotify & meteo integrations !",
   },
 ];
 

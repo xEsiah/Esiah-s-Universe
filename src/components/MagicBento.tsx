@@ -61,7 +61,8 @@ const cardData: CardDataItem[] = [
   {
     title: "Затишок",
     image: "/images/Zatyshok.webp",
-    description: "Moodboard developed with love !",
+    description:
+      "Moodboard/Planner highly customisable application developed with love !",
     label: "Desktop App",
     link: "/projects/zatyshok",
   },

@@ -2,6 +2,7 @@ import { ExternalLink } from "lucide-react";
 import CardSwap, { Card } from "../components/CardSwap";
 import "./Contact.css";
 import AnimatedContent from "@/components/AnimatedContent";
+import SEO from "@/components/SEO";
 
 export default function Contact() {
   const contacts = [
@@ -39,6 +40,10 @@ export default function Contact() {
 
   return (
     <div className="layout-page">
+      <SEO
+        title="Contact"
+        description="Looking for a creative developer? Contact me via LinkedIn, GitHub, or email."
+      />
       <AnimatedContent
         distance={50}
         direction="vertical"
@@ -48,7 +53,7 @@ export default function Contact() {
         initialOpacity={0}
         animateOpacity
         scale={1}
-        threshold={-0.1}
+        threshold={-1}
         delay={0.2}
       >
         <section className="main-section">

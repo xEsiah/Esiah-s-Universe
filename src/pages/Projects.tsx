@@ -1,4 +1,5 @@
 import AnimatedContent from "../components/AnimatedContent";
+import SEO from "@/components/SEO";
 import ScrollVelocity from "../components/ScrollVelocity";
 import {
   GameDevGallery,
@@ -35,6 +36,10 @@ const ProjectCategories = [
 export default function Projects() {
   return (
     <div className="layout-page w-full overflow-x-hidden">
+      <SEO
+        title="My Projects"
+        description="Discover my project gallery: Unity video games, React/Angular websites, and desktop applications."
+      />
       <AnimatedContent
         distance={50}
         direction="vertical"
@@ -44,7 +49,7 @@ export default function Projects() {
         initialOpacity={0}
         animateOpacity
         scale={1}
-        threshold={-0.1}
+        threshold={-1}
         delay={0.2}
       >
         <section className="main-section mb-20">
@@ -55,7 +60,6 @@ export default function Projects() {
 
       <div className="project-container flex flex-col gap-32 pb-32 w-full max-w-[100vw] overflow-x-hidden">
         {ProjectCategories.map((category, index) => (
-          // 3. IMPORTANT: on empêche la div de dépasser 100% de la largeur
           <div key={index} className="w-full max-w-full overflow-hidden">
             <AnimatedContent
               distance={100}
@@ -65,16 +69,14 @@ export default function Projects() {
               ease="power3.out"
               initialOpacity={0}
               animateOpacity
-              threshold={0.2}
+              threshold={0}
               delay={0}
-              // 4. On s'assure que l'AnimatedContent ne crée pas de scroll
               className="w-full max-w-full overflow-hidden"
             >
               <div className="mb-8 pointer-events-none w-full">
                 <ScrollVelocity
                   texts={[category.text]}
                   velocity={index % 2 === 0 ? 110 : -110}
-                  // 5. On réduit la taille du texte géant sur mobile (text-4xl au lieu de 6xl)
                   className="custom-scroll-text text-4xl md:text-8xl font-bold uppercase tracking-tighter text-white/90 whitespace-nowrap"
                 />
               </div>
@@ -87,11 +89,10 @@ export default function Projects() {
               ease="power3.out"
               initialOpacity={0}
               animateOpacity
-              threshold={0.2}
+              threshold={0}
               delay={0.2}
               className="w-full"
             >
-              {/* 6. On met un padding raisonnable pour éviter que les cartes touchent les bords sur mobile */}
               <div className="w-full px-2 md:px-6">
                 <category.Component />
               </div>
