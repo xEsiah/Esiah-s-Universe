@@ -57,22 +57,22 @@ const techLogos = [
 const serviceItems = [
   {
     text: "Web Development",
-    image: "images/webDevelopment.webp",
+    image: "images/cohaise/webDevelopment.webp",
     Component: WebService,
   },
   {
     text: "Mobile Apps",
-    image: "images/mobileApps.webp",
+    image: "images/cohaise/mobileApps.webp",
     Component: MobileService,
   },
   {
     text: "UI/UX Design",
-    image: "images/uxUI.webp",
+    image: "images/cohaise/uxUI.webp",
     Component: DesignService,
   },
   {
     text: "Custom Software",
-    image: "images/customSoftware.webp",
+    image: "images/cohaise/customSoftware.webp",
     Component: SoftwareService,
   },
 ];

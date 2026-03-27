@@ -1,5 +1,6 @@
 import AnimatedContent from "@/components/AnimatedContent";
 import SEO from "@/components/SEO";
+import DownloadButton from "@/components/DownloadButton";
 
 export default function EchoesOfTheLastStop() {
   return (
@@ -25,14 +26,17 @@ export default function EchoesOfTheLastStop() {
           <p className="subtitle">
             Thriller game project in collaboration with my partner
           </p>
-          <div className="mt-40 flex justify-center w-[90%] md:w-2/3 mx-auto">
-            <img
-              className="w-full rounded-[20px] hover:opacity-80 transition-opacity"
-              src="/images/EotLS.webp"
-              alt="Preview of Echoes of the Last Stop game made with Unity & Aseprite"
-            />
+          <div className="flex w-[90%]  mx-auto gap-10 justify-center">
+            <div className="mt-40 flex justify-center w-[90%] md:w-2/3 mx-auto">
+              <img
+                className="w-full rounded-[20px] hover:opacity-80 transition-opacity"
+                src="/images/projects/EotLS.webp"
+                alt="Preview of Echoes of the Last Stop game made with Unity & Aseprite"
+              />
+            </div>
           </div>
         </section>
+        <DownloadButton projectId="EotLS" />
       </div>
     </AnimatedContent>
   );

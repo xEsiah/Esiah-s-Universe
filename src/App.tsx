@@ -8,12 +8,12 @@ import {
 
 import BackgroundWrapper from "./components/backgrounds/BackgroundWrapper";
 import CardNav from "./components/CardNav";
+import LoadingScreen from "./components/LoadingScreen";
+import ScrollToTop from "./components/ScrollToTop";
 
 const Home = lazy(() => import("./pages/Home"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Projects = lazy(() => import("./pages/Projects"));
-import LoadingScreen from "./components/LoadingScreen";
-
 const Cohaise = lazy(() => import("./pages/Cohaise"));
 const Zatyshok = lazy(() => import("./pages/projects/Zatyshok"));
 const NeoTokyoRush = lazy(() => import("./pages/projects/NeoTokyoRush"));
@@ -23,22 +23,21 @@ const EchoesOfTheLastStop = lazy(
 const ShadowPurgeRiteOfTheDemon = lazy(
   () => import("./pages/projects/ShadowPurgeRiteOfTheDemon"),
 );
-import ScrollToTop from "./components/ScrollToTop";
+const LesVoixDeLExil = lazy(() => import("./pages/projects/LesVoixDeLExil"));
 const WYGTIWIF = lazy(() => import("./pages/projects/WYG-TIWIF"));
 
 function AppContent() {
   const location = useLocation();
   const [isPageLoading, setIsPageLoading] = useState(false);
 
-  useEffect(() => {
-    // Déclenche l'écran de chargement au changement de route
-    setIsPageLoading(true);
+  const immersivePages = ["/projects/les-voix-de-l-exil"];
+  const isImmersive = immersivePages.includes(location.pathname);
 
-    // On laisse l'écran au moins 600ms pour que l'animation warp soit visible
+  useEffect(() => {
+    setIsPageLoading(true);
     const timer = setTimeout(() => {
       setIsPageLoading(false);
     }, 600);
-
     return () => clearTimeout(timer);
   }, [location.pathname]);
 
@@ -46,7 +45,7 @@ function AppContent() {
     <>
       {isPageLoading && <LoadingScreen />}
       <ScrollToTop />
-      <BackgroundWrapper />
+      {!isImmersive && <BackgroundWrapper />}
       <CardNav />
 
       <main>
@@ -67,13 +66,19 @@ function AppContent() {
             />
             <Route path="/projects/zatyshok" element={<Zatyshok />} />
             <Route path="/projects/wyg-tiwif" element={<WYGTIWIF />} />
+            <Route
+              path="/projects/les-voix-de-l-exil"
+              element={<LesVoixDeLExil />}
+            />
           </Routes>
         </Suspense>
       </main>
 
-      <footer>
-        <p>© 2026 - Co Hai Se | All rights reserved.</p>
-      </footer>
+      {!isImmersive && (
+        <footer>
+          <p>© 2026 - Co Hai Se | All rights reserved.</p>
+        </footer>
+      )}
     </>
   );
 }

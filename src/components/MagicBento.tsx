@@ -32,35 +32,35 @@ const DEFAULT_GLOW_COLOR = "183, 28, 28";
 const cardData: CardDataItem[] = [
   {
     title: "Metz Campus",
-    image: "/images/Metz-Campus.webp",
+    image: "/images/projects/Metz-Campus.webp",
     description: "Web platform for students.",
     label: "WordPress Web site",
     link: "https://metzcampus.fr",
   },
   {
     title: "Coeur UA PAM",
-    image: "/images/Coeur-UA-PAM.webp",
+    image: "/images/projects/Coeur-UA-PAM.webp",
     description: "Web site of the Coeur UA PAM association.",
     label: "React Web site",
     link: "https://coeur-ua-pam.fr/",
   },
   {
     title: "About Co Hai Se",
-    image: "/images/Cohaise.webp",
+    image: "/images/cohaise/cohaise.webp",
     description: "Crafting the Web of Your Ambitions.",
     label: "Identity",
     link: "/cohaise",
   },
   {
     title: "Projects",
-    image: "/images/Projects.webp",
+    image: "/images/projects/Projects.webp",
     description: "Discover who am i by my creations.",
     label: "Identity",
     link: "/projects",
   },
   {
     title: "Затишок",
-    image: "/images/Zatyshok.webp",
+    image: "/images/projects/Zatyshok.webp",
     description:
       "Moodboard/Planner highly customisable application developed with love !",
     label: "Desktop App",
@@ -68,7 +68,7 @@ const cardData: CardDataItem[] = [
   },
   {
     title: "Shadow Purge",
-    image: "/images/SPRotD.webp",
+    image: "/images/projects/SPRotD.webp",
     description: "Hack n'slash RPG.",
     label: "Gamedev",
     link: "/projects/shadow-purge-rite-of-the-demon",

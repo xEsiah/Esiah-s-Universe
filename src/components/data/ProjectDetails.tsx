@@ -4,14 +4,14 @@ import HorizontalMotion from "../HorizontalMotion";
 const gameDevItems = [
   {
     id: "1",
-    img: "images/SPRotD.webp",
+    img: "images/projects/SPRotD.webp",
     link: "/projects/shadow-purge-rite-of-the-demon",
     title: "Shadow Purge : Rite of the Demon",
     description: "Hack n'slash RPG made with Unity & Aseprite.",
   },
   {
     id: "2",
-    img: "images/EotLS.webp",
+    img: "images/projects/EotLS.webp",
     link: "/projects/echoes-of-the-last-stop",
     title: "Echoes of the Last Stop",
     description:
@@ -19,32 +19,40 @@ const gameDevItems = [
   },
   {
     id: "3",
-    img: "images/NTR-Menu.webp",
+    img: "images/projects/NTR-Menu.webp",
     link: "/projects/neo-tokyo-rush",
     title: "Neo Tokyo Rush",
     description:
       "Cyberpunk-inspired beat 'em All game made with Unity & Aseprite.",
+  },
+  {
+    id: "4",
+    img: "images/projects/LesVoixDeLExil.webp",
+    link: "/projects/les-voix-de-l-exil",
+    title: "Les Voix de L'Exil",
+    description:
+      "An interactive visual novel where your choices shape the journey.",
   },
 ];
 
 const reactWebItems = [
   {
     id: "101",
-    img: "images/Cohaise.webp",
+    img: "images/cohaise/cohaise.webp",
     link: "/cohaise",
     title: "Co Hai Se",
     description: "Landing single page for my (fictionnal) compagny.",
   },
   {
     id: "102",
-    img: "images/Esiah-s-Universe.webp",
+    img: "images/projects/Esiah-s-Universe.webp",
     link: "/",
     title: "Esiah's Universe",
     description: "A journey through code, design, and imagination.",
   },
   {
     id: "103",
-    img: "images/Coeur-UA-PAM.webp",
+    img: "images/projects/Coeur-UA-PAM.webp",
     link: "https://coeur-ua-pam.fr/",
     title: "Coeur UA PAM",
     description: "Web site for Coeur UA PAM association.",
@@ -54,7 +62,7 @@ const reactWebItems = [
 const wordpressItems = [
   {
     id: "201",
-    img: "images/Metz-Campus.webp",
+    img: "images/projects/Metz-Campus.webp",
     link: "https://metzcampus.fr/",
     title: "Metz Campus",
     description:
@@ -65,7 +73,7 @@ const wordpressItems = [
 const desktopAppItems = [
   {
     id: "301",
-    img: "images/Zatyshok.webp",
+    img: "images/projects/Zatyshok.webp",
     link: "/projects/zatyshok",
     title: "Затишок",
     description:
@@ -76,7 +84,7 @@ const desktopAppItems = [
 const angulartWebItems = [
   {
     id: "401",
-    img: "images/WYG-TIWIF.webp",
+    img: "images/projects/WYG-TIWIF.webp",
     link: "/projects/wyg-tiwif",
     title: "WYG-TIWIF",
     description:

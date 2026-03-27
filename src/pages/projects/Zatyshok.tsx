@@ -1,5 +1,6 @@
 import AnimatedContent from "@/components/AnimatedContent";
 import SEO from "@/components/SEO";
+import DownloadButton from "@/components/DownloadButton";
 
 export default function Zatyshok() {
   return (
@@ -34,11 +35,12 @@ export default function Zatyshok() {
           >
             <img
               className="w-full rounded-[20px] hover:opacity-80 transition-opacity"
-              src="/images/Zatyshok.webp"
+              src="/images/projects/Zatyshok.webp"
               alt="Preview of Zatyshok desktop app made with Electron"
             />
           </a>
         </section>
+        <DownloadButton projectId="ZATYSHOK" />
       </div>
     </AnimatedContent>
   );
