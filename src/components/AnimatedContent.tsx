@@ -119,8 +119,14 @@ const AnimatedContent: React.FC<AnimatedContentProps> = ({
       once: true,
       onEnter: () => tl.play(),
     });
+    const resizeObserver = new ResizeObserver(() => {
+      ScrollTrigger.refresh();
+    });
+
+    resizeObserver.observe(document.body);
 
     return () => {
+      resizeObserver.disconnect();
       st.kill();
       tl.kill();
     };

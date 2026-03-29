@@ -7,9 +7,9 @@ import {
 } from "react-router-dom";
 
 import BackgroundWrapper from "./components/backgrounds/BackgroundWrapper";
-import CardNav from "./components/CardNav";
 import LoadingScreen from "./components/LoadingScreen";
 import ScrollToTop from "./components/ScrollToTop";
+import CardNav from "./components/CardNav";
 
 const Home = lazy(() => import("./pages/Home"));
 const Contact = lazy(() => import("./pages/Contact"));
@@ -34,10 +34,34 @@ function AppContent() {
   const isImmersive = immersivePages.includes(location.pathname);
 
   useEffect(() => {
+    const handleGlobalClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement).closest("a");
+
+      if (
+        target &&
+        target.href &&
+        target.origin === window.location.origin &&
+        target.target !== "_blank" &&
+        !e.ctrlKey &&
+        !e.metaKey
+      ) {
+        const currentPath = window.location.pathname;
+        const targetPath = new URL(target.href).pathname;
+        if (currentPath !== targetPath) {
+          setIsPageLoading(true);
+        }
+      }
+    };
+
+    document.addEventListener("click", handleGlobalClick);
+    return () => document.removeEventListener("click", handleGlobalClick);
+  }, []);
+  useEffect(() => {
     setIsPageLoading(true);
     const timer = setTimeout(() => {
       setIsPageLoading(false);
     }, 600);
+
     return () => clearTimeout(timer);
   }, [location.pathname]);
 

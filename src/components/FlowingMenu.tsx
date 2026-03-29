@@ -3,6 +3,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import "./FlowingMenu.css";
+import AnimatedContent from "./AnimatedContent";
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -193,35 +194,48 @@ const MenuItem: React.FC<MenuItemProps> = ({
       ref={itemRef}
       style={{ borderColor }}
     >
-      <div
-        className="menu__item-link"
-        onClick={onClick}
-        onMouseEnter={() =>
-          !isOpen &&
-          gsap.to(marqueeRef.current, { y: "0%", duration: 0.6, ease: "expo" })
-        }
-        onMouseLeave={() =>
-          gsap.to(marqueeRef.current, {
-            y: "101%",
-            duration: 0.6,
-            ease: "expo",
-          })
-        }
+      <AnimatedContent
+        distance={160}
+        direction="horizontal"
+        reverse={true}
+        duration={2}
+        ease="power3.out"
+        initialOpacity={0}
+        animateOpacity
+        scale={1}
+        delay={0.1}
       >
-        {text}
-      </div>
-
+        <div
+          className="menu__item-link"
+          onClick={onClick}
+          onMouseEnter={() =>
+            !isOpen &&
+            gsap.to(marqueeRef.current, {
+              y: "0%",
+              duration: 0.6,
+              ease: "expo",
+            })
+          }
+          onMouseLeave={() =>
+            gsap.to(marqueeRef.current, {
+              y: "101%",
+              duration: 0.6,
+              ease: "expo",
+            })
+          }
+        >
+          {text}
+        </div>
+      </AnimatedContent>
       <div
         className="service-details-wrapper"
         ref={contentRef}
         style={{ height: 0, overflow: "hidden", opacity: 0 }}
       >
         <div className="details-inner px-4 py-8 md:px-12 md:py-12 w-full">
-          {/* Rendu dynamique du Masonry : uniquement quand l'item est ouvert */}
           {shouldRenderContent && Component && <Component />}
         </div>
       </div>
-
       <div
         className="marquee"
         ref={marqueeRef}

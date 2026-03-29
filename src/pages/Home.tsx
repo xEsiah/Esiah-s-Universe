@@ -18,7 +18,6 @@ export default function Home() {
         initialOpacity={0}
         animateOpacity
         scale={1}
-        threshold={-0.1}
         delay={0.5}
       >
         <section className="main-section">
@@ -38,7 +37,6 @@ export default function Home() {
         initialOpacity={0}
         animateOpacity
         scale={0.95}
-        threshold={0}
         delay={0.3}
       >
         <section className="bento-container">

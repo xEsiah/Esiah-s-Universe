@@ -7,6 +7,7 @@ import TargetCursor from "../cursors/TargetCursor";
 export default function BackgroundWrapper() {
   const location = useLocation();
   const isCohaise = location.pathname === "/cohaise";
+  const isHome = location.pathname === "/";
 
   return (
     <>
@@ -44,7 +45,7 @@ export default function BackgroundWrapper() {
               pillarHeight={1}
               noiseIntensity={0.5}
               pillarRotation={20}
-              interactive
+              interactive={false}
               mixBlendMode="screen"
               quality="high"
             />
@@ -52,8 +53,8 @@ export default function BackgroundWrapper() {
         ) : (
           <div className="w-full h-full relative">
             <Galaxy
-              mouseRepulsion={true}
-              mouseInteraction={true}
+              mouseRepulsion={isHome}
+              mouseInteraction={isHome}
               density={1.5}
               glowIntensity={0.4}
               saturation={0}

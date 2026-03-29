@@ -13,8 +13,7 @@ export default function WYGTIWIF() {
       initialOpacity={0}
       animateOpacity
       scale={1}
-      threshold={-1}
-      delay={0.2}
+      delay={0.1}
     >
       <SEO
         title="WYG TIWIF"

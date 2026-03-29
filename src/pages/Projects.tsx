@@ -8,7 +8,6 @@ import {
   DesktopAppGallery,
   AngulartWebGallery,
 } from "../components/data/ProjectDetails";
-import "./Project.css";
 
 const ProjectCategories = [
   {
@@ -49,16 +48,15 @@ export default function Projects() {
         initialOpacity={0}
         animateOpacity
         scale={1}
-        threshold={-1}
-        delay={0.2}
+        delay={0.1}
       >
-        <section className="main-section mb-20">
+        <section className="main-section">
           <h1 className="title">Projects</h1>
           <p className="subtitle">Here you can find all my creations</p>
         </section>
       </AnimatedContent>
 
-      <div className="project-container flex flex-col gap-32 pb-32 w-full max-w-[100vw] overflow-x-hidden">
+      <div className="flex flex-col gap-32 pb-32 w-full max-w-[100vw] overflow-x-hidden">
         {ProjectCategories.map((category, index) => (
           <div key={index} className="w-full max-w-full overflow-hidden">
             <AnimatedContent
@@ -69,7 +67,6 @@ export default function Projects() {
               ease="power3.out"
               initialOpacity={0}
               animateOpacity
-              threshold={0}
               delay={0}
               className="w-full max-w-full overflow-hidden"
             >
@@ -89,8 +86,7 @@ export default function Projects() {
               ease="power3.out"
               initialOpacity={0}
               animateOpacity
-              threshold={0}
-              delay={0.2}
+              delay={0}
               className="w-full"
             >
               <div className="w-full px-2 md:px-6">

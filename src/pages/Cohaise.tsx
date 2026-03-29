@@ -93,7 +93,6 @@ const Cohaise = () => {
         initialOpacity={0}
         animateOpacity
         scale={1}
-        threshold={-0.1}
         delay={0.5}
       >
         <section className="main-section">
@@ -103,26 +102,12 @@ const Cohaise = () => {
           </p>
         </section>
       </AnimatedContent>
-      <AnimatedContent
-        distance={160}
-        direction="horizontal"
-        reverse={false}
-        duration={2}
-        ease="power3.out"
-        initialOpacity={0}
-        animateOpacity
-        scale={1}
-        threshold={0.1}
-        delay={0.1}
-      >
-        <FlowingMenu
-          items={serviceItems}
-          speed={50}
-          textColor="#ffffff"
-          borderColor="rgba(255,255,255,0.15)"
-        />
-      </AnimatedContent>
-
+      <FlowingMenu
+        items={serviceItems}
+        speed={50}
+        textColor="#ffffff"
+        borderColor="rgba(255,255,255,0.15)"
+      />
       <LogoLoop
         logos={techLogos}
         speed={80}
