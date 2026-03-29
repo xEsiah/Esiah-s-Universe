@@ -15,7 +15,7 @@ export const gameDevItems = [
     link: "/projects/echoes-of-the-last-stop",
     title: "Echoes of the Last Stop",
     description:
-      "Story-driven thriller game with branching narratives in collaboration with my partner made with Unity & Aseprite.",
+      "Story-driven thriller game in collaboration with my partner made with Unity & Aseprite.",
   },
   {
     id: "3",

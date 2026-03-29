@@ -17,13 +17,14 @@ export default function EchoesOfTheLastStop() {
     >
       <SEO
         title="Echoes of the Last Stop"
-        description="A thriller game project developed with Unity and Aseprite, featuring branching narratives."
+        description="Story-driven thriller game in collaboration with my partner made with Unity & Aseprite"
       />
       <div className="layout-page">
         <section className="main-section">
           <h1 className="title">Echoes of the Last Stop</h1>
           <p className="subtitle">
-            Thriller game project in collaboration with my partner
+            Story-driven thriller game in collaboration with my partner made
+            with Unity & Aseprite
           </p>
           <div className="flex w-[90%]  mx-auto gap-10 justify-center">
             <div className="mt-40 flex justify-center w-[90%] md:w-2/3 mx-auto">

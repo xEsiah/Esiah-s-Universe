@@ -1,4 +1,4 @@
-import {
+import React, {
   useLayoutEffect,
   useRef,
   useState,
@@ -10,22 +10,34 @@ import {
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { gsap } from "gsap";
 import "./CardNav.css";
-import { mainMenuItems, projectMenuItems } from "./data/DataMenuItem";
 
-const InfiniteMenu = lazy(() => import("./InfiniteMenu"));
+import { mainMenuItems, projectMenuItems, MenuItem } from "./data/DataMenuItem";
+
+const InfiniteMenu = lazy(
+  () => import("./InfiniteMenu"),
+) as React.ComponentType<any>;
 const Lanyard = lazy(() => import("./Lanyard"));
 
-const CardNav = ({
+interface CardNavProps {
+  logo?: string;
+  logoAlt?: string;
+  className?: string;
+  ease?: string;
+}
+
+const CardNav: React.FC<CardNavProps> = ({
   logo = "/images/logo.webp",
   logoAlt = "Esiah Logo",
   className = "",
   ease = "power3.out",
 }) => {
-  const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [showLanyard, setShowLanyard] = useState(false);
-  const navRef = useRef(null);
-  const tlRef = useRef(null);
+  const [isHamburgerOpen, setIsHamburgerOpen] = useState<boolean>(false);
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const [showLanyard, setShowLanyard] = useState<boolean>(false);
+
+  const navRef = useRef<HTMLElement>(null);
+  const tlRef = useRef<gsap.core.Timeline | null>(null);
+
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -49,7 +61,7 @@ const CardNav = ({
     }
   };
 
-  const handleCardClick = (link) => {
+  const handleCardClick = (link: string) => {
     if (!link) return;
     const cleanLink = link.replace("_blank", "").trim();
     if (link.includes("_blank") || cleanLink.startsWith("http")) {
@@ -68,7 +80,7 @@ const CardNav = ({
     }
   };
 
-  const menuItems = useMemo(() => {
+  const menuItems: MenuItem[] = useMemo(() => {
     if (location.pathname.startsWith("/projects")) {
       return projectMenuItems;
     }
@@ -93,7 +105,9 @@ const CardNav = ({
   useLayoutEffect(() => {
     const tl = createTimeline();
     tlRef.current = tl;
-    return () => tl?.kill();
+    return () => {
+      tl?.kill();
+    };
   }, [createTimeline]);
 
   return (
@@ -130,7 +144,7 @@ const CardNav = ({
               alt={logoAlt}
               className="nav-logo-img"
               onError={(e) => {
-                e.target.style.display = "none";
+                (e.target as HTMLImageElement).style.display = "none";
               }}
             />
           </Link>
@@ -146,7 +160,7 @@ const CardNav = ({
         >
           <Suspense fallback={null}>
             <InfiniteMenu
-              items={menuItems}
+              items={menuItems as any}
               scale={0.8}
               onClose={closeMenuIfOpen}
               onItemClick={handleCardClick}

@@ -83,11 +83,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  pointer-events: none; /* Laisse cliquer au travers si besoin */
+  pointer-events: none;
 }
 
 .site-title {
-  /* Ou ta font perso */
   font-weight: 700;
   font-size: 1.2rem;
   letter-spacing: -0.02em;
