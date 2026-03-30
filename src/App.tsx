@@ -10,6 +10,7 @@ import BackgroundWrapper from "./components/backgrounds/BackgroundWrapper";
 import LoadingScreen from "./components/LoadingScreen";
 import ScrollToTop from "./components/ScrollToTop";
 import CardNav from "./components/CardNav";
+import NotFound from "./components/NotFound";
 
 const Home = lazy(() => import("./pages/Home"));
 const Contact = lazy(() => import("./pages/Contact"));
@@ -94,6 +95,7 @@ function AppContent() {
               path="/projects/les-voix-de-l-exil"
               element={<LesVoixDeLExil />}
             />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </main>

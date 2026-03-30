@@ -11,7 +11,7 @@ export const ProjectDownloads: Record<string, ProjectDownloadData> = {
   SPRotD: { id: "SPRotD", downloadUrl: "" },
   ZATYSHOK: {
     id: "ZATYSHOK",
-    downloadUrl: "https://github.com/xEsiah/zatyshok-frontend/releases/tag",
+    downloadUrl: "https://github.com/xEsiah/zatyshok-frontend/releases",
   },
   EotLS: { id: "EotLS", downloadUrl: "" },
   WYGTIWIF: {
